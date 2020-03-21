@@ -40,15 +40,15 @@ unittest: requirements
 	python -m unittest discover ${TEST_DIR}
 
 coverage: requirements
-	coverage run --source ${APP_NAME} --branch -m unittest discover -v 
-	coverage report -m
-	coverage html
+	python -m coverage run --source ${APP_NAME} --branch -m unittest discover -v 
+	python -m coverage report -m
+	python -m coverage html
 
 lint: requirements
-	pylint ${APP_NAME}
+	python -m pylint ${APP_NAME}
 
 security:
-	bandit ${APP_NAME}
+	python -m bandit ${APP_NAME}
 
 all_checks: lint security unittest coverage
 
