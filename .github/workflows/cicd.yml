@@ -19,13 +19,17 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Static code analysis
+    - name: Installing requirements
+      run: make requirements
+
+    - name: Static code analysis (pylint tool)
       run: make lint
 
-    - name: Securit checkings
+    - name: Code security checkings (bandit tool)
       run: make security
 
     - name: Unit tests
-      run: |
-        make unittest
-        make coverage
+      run: make unittest
+
+    - name: Code coverage
+      run: make coverage
