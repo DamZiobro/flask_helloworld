@@ -1,5 +1,6 @@
 #
 # Makefile
+APP_NAME=hello
 
 include .env
 
@@ -20,8 +21,12 @@ env:
 start: build
 	docker-compose up -d 
 
+requirements:
+	pip install -r ${APP_NAME}/requirements.txt
+	touch $@
+
 #build app's docker image
-build:
+build: requirements
 	docker-compose build
 
 stop:
@@ -30,7 +35,7 @@ stop:
 
 #==========================================================================
 # Test and verify quality of the app
-test: 
+test: requirements
 	python -m unittest discover ${TEST_DIR}
 
 coverage:
