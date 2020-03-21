@@ -16,9 +16,9 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - "./${APP_NAME}:/app"
+      - ".:/app"
     working_dir: "/app"
-    command: ./run.sh
+    command: ./${APP_NAME}/run.sh
     networks:
       - dev
 

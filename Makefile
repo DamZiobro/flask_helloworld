@@ -28,6 +28,7 @@ requirements:
 #build app's docker image
 build: requirements
 	docker-compose build
+	docker network create dev || echo "Network 'dev' already exists"
 
 stop:
 	docker-compose down
@@ -51,6 +52,6 @@ security:
 
 all_checks: lint security test coverage
 
-docker-all-checks: build
+docker-all_checks: start
 	docker exec -it ${APP_NAME} make all_checks
 
