@@ -26,7 +26,7 @@ requirements:
 	touch $@
 
 #build app's docker image
-build: requirements
+build: 
 	docker-compose build
 	docker network create dev || echo "Network 'dev' already exists"
 
@@ -36,21 +36,21 @@ stop:
 
 #==========================================================================
 # Test and verify quality of the app
-test: requirements
+unittest: requirements
 	python -m unittest discover ${TEST_DIR}
 
-coverage:
+coverage: requirements
 	coverage run --source ${APP_NAME} --branch -m unittest discover -v 
 	coverage report -m
 	coverage html
 
-lint:
+lint: requirements
 	pylint ${APP_NAME}
 
 security:
 	bandit ${APP_NAME}
 
-all_checks: lint security test coverage
+all_checks: lint security unittest coverage
 
 docker-all_checks: start
 	docker exec -it ${APP_NAME} make all_checks
